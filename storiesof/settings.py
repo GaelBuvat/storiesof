@@ -28,7 +28,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['crop-agri.herokuapp.com']
+ALLOWED_HOSTS = ['storiesof.herokuapp.com/']
 
 SERVER_EMAIL = 'buvatgael@gmail.com'
 

@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+    
+    {% block content %}
+                    <header class="page-header page-header-dark bg-gradient-primary-to-secondary">
+                        <div class="page-header-content">
+                            <div class="container text-center">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-8">
+                                        <h1 class="page-header-title mb-3">The A team</h1>
+                                        <p class="page-header-text mb-0">These are the amazing people you work with!</p>
+                                        <p>
+                                        <a class="btn-teal btn rounded-pill px-4 ml-lg-4" onclick="copyToClipboard('<p>{{ linkedin_authorization_code_url_custom }}</p>')"><i class="fas fa-arrow-right ml-1"></i> Copy to clipboard the link to invite your collegues to join the adventure <i class="fas fa-arrow-left ml-1"></i></a>
+
+                                   <script type="text/javascript">
+                                        function copyToClipboard(element) {
+                                            var $temp = $("<input>");
+                                            $("body").append($temp);
+                                            $temp.val($(element).text()).select();
+                                            document.execCommand("copy");
+                                            $temp.remove();
+                                        }
+                                    </script>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="svg-border-rounded text-light">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
+                        </div>
+                    </header>
+                    <section class="bg-light pb-10">
+                        <div class="container">
+                            <div class="row">
+
+                                {% for profil_linkedin in profils_linkedin %}
+
+                                <div class="col-md-6 col-xl-4 mb-5 mt-n5">
+                                    <a class="card card-portfolio h-100" href="#!"
+                                        ><img class="card-img-top" src="{{ profil_linkedin.photo }}" alt="..." />
+                                        <div class="card-body"><div class="card-title">{{ profil_linkedin.first_name }} {{ profil_linkedin.last_name }}</div></div></a
+                                    >
+                                </div>
+
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                    </section>
+                    <section class="bg-white py-10">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-xl-6 col-lg-8 col-md-10 text-center py-5">
+                                    <h2>Ready to get Started?</h2>
+                                    <p class="lead text-gray-500 mb-5">We'd love to hear from you about your branding and digital needs. We are currently accepting new clients.</p>
+                                    <a class="btn btn-primary btn-marketing rounded-pill" href="javascript:void(0);">Contact us</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="svg-border-rounded text-dark">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
+                        </div>
+                    </section>
+                </main>
+            </div>
+            {% endblock %}

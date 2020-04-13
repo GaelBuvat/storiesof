@@ -36,7 +36,7 @@ def linkedin_homepage(request):
     
     linkedin_authorization_code_url = 'https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id='+ CLIENT_ID + '&redirect_uri=' + REDIRECT_URL + '&state=' + 'fooobar' + '&scope=r_liteprofile%20r_emailaddress%20w_member_social'    
 
-    return render(request, 'storiesof/dist/linkedin_homepage.html',{'linkedin_authorization_code_url':linkedin_authorization_code_url})
+    return render(request, 'storiesof/linkedin_homepage.html',{'linkedin_authorization_code_url':linkedin_authorization_code_url})
 
 
 

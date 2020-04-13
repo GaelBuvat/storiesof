@@ -121,7 +121,7 @@ def linkedin_auth(request):
             profil_linkedin.save()
             return redirect('../linkedin/'+authorization_state_normal)
 
-    return render(request, 'storiesof/dist/linkedin_auth.html')
+    return render(request, 'storiesof/linkedin_auth.html')
 
 
 
@@ -137,101 +137,8 @@ def linkedin(request,profil_linkedin_admin_id):
 
     linkedin_authorization_code_url_custom = 'https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=' + CLIENT_ID + '&redirect_uri=' + REDIRECT_URL + '&state=' + profil_linkedin_admin_id + '&scope=r_liteprofile%20r_emailaddress%20w_member_social'
     
-    return render(request, 'storiesof/dist/linkedin.html',{'profil_linkedin_admin':profil_linkedin_admin,'profils_linkedin':profils_linkedin,'linkedin_authorization_code_url_custom':linkedin_authorization_code_url_custom})
+    return render(request, 'storiesof/linkedin.html',{'profil_linkedin_admin':profil_linkedin_admin,'profils_linkedin':profils_linkedin,'linkedin_authorization_code_url_custom':linkedin_authorization_code_url_custom})
 
 
-
-
-
-
-def view_article(request, id_article):
-    """ 
-    Vue qui affiche un article selon son identifiant (ou ID, ici un numéro)
-    Son ID est le second paramètre de la fonction (pour rappel, le premier
-    paramètre est TOUJOURS la requête de l'utilisateur)
-    """
-    return HttpResponse(
-        "Vous avez demandé l'article n° {0} !".format(id_article)    
-    )
-
-
-
-def lire(request, id):
-    try:
-        article = Article.objects.get(id=id)
-    except Article.DoesNotExist:
-        raise Http404
-
-    return render(request, 'blog/index.html', {'article': article})
-
-def lire_acheteur(request, id):
-    try:
-        acheteur = Acheteur.objects.get(id=id)
-    except Acheteur.DoesNotExist:
-        raise Http404
-
-    return render(request, 'blog/index.html', {'acheteur': acheteur})
-
-def lire_revue(request, id):
-    try:
-        revue = Revue.objects.get(id=id)
-    except Revue.DoesNotExist:
-        raise Http404
-
-    return render(request, 'blog/index.html', {'revue': revue})
-
-
-
-
-def get_TestForm(request):
-    # if this is a POST request we need to process the form data
-    if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = TestForm(request.POST)
-        # check whether it's valid:
-        if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            return HttpResponseRedirect('/thanks/')
-
-    # if a GET (or any other method) we'll create a blank form
-    else:
-        form = TestForm()
-
-    return render(request, 'index.html', {'form': form})
-
-
-
-def user(request):
-    """ Afficher tous les articles de notre blog """
-    articles = Article.objects.all() # Nous sélectionnons tous nos articles
-    return render(request, 'blog/user.html',{'derniers_articles': articles})
-
-
-
-
-def list_articles(request, month, year):
-    """ Liste des articles d'un mois précis. """
-    return HttpResponse(
-        "Vous avez demandé les articles de {0} {1}.".format(month, year)  
-    )
-
-
-
-
-
-
-
-
-def date_actuelle(request):
-    return render(request, 'blog/date.html', {'date': datetime.now()})
-
-
-def addition(request, nombre1, nombre2):    
-    total = nombre1 + nombre2
-
-    # Retourne nombre1, nombre2 et la somme des deux au tpl
-    return render(request, 'blog/addition.html', locals())
 
 

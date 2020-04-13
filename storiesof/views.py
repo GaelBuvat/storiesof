@@ -14,15 +14,16 @@ from .models import ProfilLinkedin, ProfilLinkedinAdmin
 
 import requests                                 # To use request package in current program 
 
-REDIRECT_URL = 'http://127.0.0.1:8001/linkedin_auth/'
+CLIENT_ID = '789z7ztvzx8pgv'
+CLIENT_SECRET = 'y7NUzHM9yimbi2xZ'
+REDIRECT_URL = 'https://storiesof.herokuapp.com/linkedin_auth/'
 
 def redirect_view(request,url):
     response = redirect(url)
     return response
 
 def linkedin_auth_url(request):
-    CLIENT_ID = '789z7ztvzx8pgv'
-    CLIENT_SECRET = 'y7NUzHM9yimbi2xZ'
+    
 
     linkedin_authorization_code_url = 'https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id='+ CLIENT_ID + '&redirect_uri=' + REDIRECT_URL + '&state=' + 'fooobar' + '&scope=r_liteprofile%20r_emailaddress%20w_member_social'    
 
@@ -50,10 +51,6 @@ def linkedin_auth(request):
 
     authorization_state = parse_qs(parsed.query)['state'][0]
 
-    
-
-    CLIENT_ID = '789z7ztvzx8pgv'
-    CLIENT_SECRET = 'y7NUzHM9yimbi2xZ'
 
     access_token_url = 'https://www.linkedin.com/oauth/v2/accessToken?grant_type=authorization_code&code='+authorization_code +'&redirect_uri=' + REDIRECT_URL + '&client_id=' + CLIENT_ID + '&client_secret=' + CLIENT_SECRET
     data_token = requests.get(access_token_url)
@@ -130,8 +127,7 @@ def linkedin_auth(request):
 
 
 def linkedin(request,profil_linkedin_admin_id):
-    CLIENT_ID = '789z7ztvzx8pgv'
-    CLIENT_SECRET = 'y7NUzHM9yimbi2xZ'
+    
 
     print(profil_linkedin_admin_id)
     profil_linkedin_admin = ProfilLinkedinAdmin.objects.get(linkedin_id=profil_linkedin_admin_id)# Nous sélectionnons tous nos articles

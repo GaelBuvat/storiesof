@@ -10,13 +10,17 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from .models import ProfilLinkedin, ProfilLinkedinAdmin
+from .models import ProfilLinkedin, ProfilLinkedinAdmin, Project
 
 import requests                                 # To use request package in current program 
 
 CLIENT_ID = '789z7ztvzx8pgv'
 CLIENT_SECRET = 'y7NUzHM9yimbi2xZ'
+#  http://127.0.0.1:8001/linkedin_auth/ https://storiesof.herokuapp.com/linkedin_auth/
 REDIRECT_URL = 'https://storiesof.herokuapp.com/linkedin_auth/'
+
+linkedin_authorization_code_url = 'https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id='+ CLIENT_ID + '&redirect_uri=' + REDIRECT_URL + '&state=' + 'fooobar' + '&scope=r_liteprofile%20r_emailaddress%20w_member_social'    
+
 
 def redirect_view(request,url):
     response = redirect(url)
@@ -24,20 +28,31 @@ def redirect_view(request,url):
 
 def linkedin_auth_url(request):
     
-
-    linkedin_authorization_code_url = 'https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id='+ CLIENT_ID + '&redirect_uri=' + REDIRECT_URL + '&state=' + 'fooobar' + '&scope=r_liteprofile%20r_emailaddress%20w_member_social'    
-
     response = redirect(linkedin_authorization_code_url)
     return response
 
 def linkedin_homepage(request):
-    CLIENT_ID = '789z7ztvzx8pgv'
-    CLIENT_SECRET = 'y7NUzHM9yimbi2xZ'
     
-    
-    linkedin_authorization_code_url = 'https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id='+ CLIENT_ID + '&redirect_uri=' + REDIRECT_URL + '&state=' + 'fooobar' + '&scope=r_liteprofile%20r_emailaddress%20w_member_social'    
-
     return render(request, 'storiesof/linkedin_homepage.html',{'linkedin_authorization_code_url':linkedin_authorization_code_url})
+
+def linkedin_admin(request,profil_linkedin_admin_id):
+    projects = Project.objects.filter(linkedin_admin_id__linkedin_id=profil_linkedin_admin_id)# Nous sélectionnons tous nos articles
+    profil_admin = ProfilLinkedinAdmin.objects.get(linkedin_id=profil_linkedin_admin_id)
+
+    return render(request, 'storiesof/linkedin_admin.html',{'projects':projects, 'profil_linkedin_admin_id':profil_linkedin_admin_id,'profil_admin':profil_admin})
+
+def create_project(request,profil_linkedin_admin_id):
+    profil_admin = ProfilLinkedinAdmin.objects.get(linkedin_id=profil_linkedin_admin_id)
+
+    project = Project()
+    project.name = 'test'
+    project.linkedin_admin_id = profil_admin
+    project.photo_url = 'https://source.unsplash.com/n3sqjJzZiBM/400x300'
+    project.save()
+
+    projects = Project.objects.filter(linkedin_admin_id__linkedin_id=profil_linkedin_admin_id)
+    project_id = str(projects[len(projects)-1].id)
+    return redirect('../linkedin/'+profil_linkedin_admin_id+'/'+project_id)
 
 
 
@@ -52,6 +67,7 @@ def linkedin_auth(request):
     authorization_state = parse_qs(parsed.query)['state'][0]
 
 
+    # Phase de demande d'informations concernant la personne qui se connecte
     access_token_url = 'https://www.linkedin.com/oauth/v2/accessToken?grant_type=authorization_code&code='+authorization_code +'&redirect_uri=' + REDIRECT_URL + '&client_id=' + CLIENT_ID + '&client_secret=' + CLIENT_SECRET
     data_token = requests.get(access_token_url)
 
@@ -76,25 +92,51 @@ def linkedin_auth(request):
 
     linkedin_id = data_load['id']
 
+    url2 = 'https://api.linkedin.com/v2/me?projection=(id,profilePicture(displayImage~:playableStreams))&oauth2_access_token='+ access_token
+    data2 = requests.get(url2)
+    data2_load = json.loads(str(data2.text))
+        
+    profilePicture = data2_load['profilePicture']
+    displayImage = profilePicture['displayImage~']
+    elements = displayImage['elements']
+    profilepic3 = elements[3]
+    identifiers = profilepic3['identifiers']
+    identifiers0 = identifiers[0]
+    urlpicture = identifiers0['identifier']
 
-    ProfilLinkedinAdmin.objects.filter(linkedin_id=linkedin_id).exists()
 
-    if ProfilLinkedinAdmin.objects.filter(linkedin_id=linkedin_id).exists():
+    profil_admin_verif = ProfilLinkedinAdmin.objects.filter(linkedin_id=linkedin_id).exists()
+    profil_verif = ProfilLinkedin.objects.filter(linkedin_id=linkedin_id).exists()
+
+    if profil_admin_verif:
         
-        return redirect('../linkedin/'+linkedin_id)
-        
-    else:
-        url2 = 'https://api.linkedin.com/v2/me?projection=(id,profilePicture(displayImage~:playableStreams))&oauth2_access_token='+ access_token
-        data2 = requests.get(url2)
-        data2_load = json.loads(str(data2.text))
-        
-        profilePicture = data2_load['profilePicture']
-        displayImage = profilePicture['displayImage~']
-        elements = displayImage['elements']
-        profilepic3 = elements[3]
-        identifiers = profilepic3['identifiers']
-        identifiers0 = identifiers[0]
-        urlpicture = identifiers0['identifier']
+        if authorization_state == "fooobar'>":
+            return redirect('../linkedin_admin/'+linkedin_id)
+        else:
+            authorization_state_normal = authorization_state.replace("'>", "")
+
+            project = Project.objects.get(id=authorization_state_normal)
+            project.photo_url = urlpicture
+            project.save()
+
+            profil_linkedin_admin_id = project.linkedin_admin_id.linkedin_id
+
+            profil_linkedin_verif= ProfilLinkedin.objects.filter(project_related=project).filter(linkedin_id=linkedin_id).exists()
+
+            if profil_linkedin_verif:
+                return redirect('../linkedin/'+profil_linkedin_admin_id+'/'+authorization_state_normal)
+            else:
+                profil_linkedin = ProfilLinkedin()
+                profil_linkedin.project_related = project
+                profil_linkedin.linkedin_id = linkedin_id
+                profil_linkedin.first_name = firstName_fr_FR
+                profil_linkedin.last_name = lastName_fr_FR
+                profil_linkedin.photo = urlpicture
+                profil_linkedin.r_liteprofile = data_load
+                profil_linkedin.save()
+                return redirect('../linkedin/'+profil_linkedin_admin_id+'/'+authorization_state_normal)
+    elif profil_verif:
+
 
         if authorization_state == "fooobar'>":
             profil_linkedin_admin = ProfilLinkedinAdmin()
@@ -104,40 +146,75 @@ def linkedin_auth(request):
             profil_linkedin_admin.photo = urlpicture
             profil_linkedin_admin.r_liteprofile = data_load
             profil_linkedin_admin.save()
-
-            return redirect('../linkedin/'+linkedin_id)
+            return redirect('../linkedin_admin/'+linkedin_id)
         else:
             authorization_state_normal = authorization_state.replace("'>", "")
-            print(authorization_state_normal)
-            profil_linkedin_admin = ProfilLinkedinAdmin.objects.get(linkedin_id=authorization_state_normal)
-            print(profil_linkedin_admin)
+
+            project = Project.objects.get(id=authorization_state_normal)
+            project.photo_url = urlpicture
+            project.save()
+
+            profil_linkedin_admin_id = project.linkedin_admin_id.linkedin_id
+
+            profil_linkedin_verif= ProfilLinkedin.objects.filter(project_related=project).filter(linkedin_id=linkedin_id).exists()
+
+            if profil_linkedin_verif:
+                return redirect('../linkedin/'+profil_linkedin_admin_id+'/'+authorization_state_normal)
+            else:
+                profil_linkedin = ProfilLinkedin()
+                profil_linkedin.project_related = project
+                profil_linkedin.linkedin_id = linkedin_id
+                profil_linkedin.first_name = firstName_fr_FR
+                profil_linkedin.last_name = lastName_fr_FR
+                profil_linkedin.photo = urlpicture
+                profil_linkedin.r_liteprofile = data_load
+                profil_linkedin.save()
+                return redirect('../linkedin/'+profil_linkedin_admin_id+'/'+authorization_state_normal)
+    else:
+        if authorization_state == "fooobar'>":
+            profil_linkedin_admin = ProfilLinkedinAdmin()
+            profil_linkedin_admin.linkedin_id = linkedin_id
+            profil_linkedin_admin.first_name = firstName_fr_FR
+            profil_linkedin_admin.last_name = lastName_fr_FR
+            profil_linkedin_admin.photo = urlpicture
+            profil_linkedin_admin.r_liteprofile = data_load
+            profil_linkedin_admin.save()
+            return redirect('../linkedin_admin/'+linkedin_id)
+        else:
+            authorization_state_normal = authorization_state.replace("'>", "")
+
+            project = Project.objects.get(id=authorization_state_normal)
+            project.photo_url = urlpicture
+            project.save()
+
+            profil_linkedin_admin_id = project.linkedin_admin_id.linkedin_id
+
             profil_linkedin = ProfilLinkedin()
-            profil_linkedin.profil_linkedin_admin_id = profil_linkedin_admin.linkedin_id
+            profil_linkedin.project_related = project
             profil_linkedin.linkedin_id = linkedin_id
             profil_linkedin.first_name = firstName_fr_FR
             profil_linkedin.last_name = lastName_fr_FR
             profil_linkedin.photo = urlpicture
             profil_linkedin.r_liteprofile = data_load
             profil_linkedin.save()
-            return redirect('../linkedin/'+authorization_state_normal)
+            return redirect('../linkedin/'+profil_linkedin_admin_id+'/'+authorization_state_normal)
 
     return render(request, 'storiesof/linkedin_auth.html')
 
 
 
 
-def linkedin(request,profil_linkedin_admin_id):
+def linkedin(request,profil_linkedin_admin_id,project_id):
     
+    profil_linkedin_admin = ProfilLinkedinAdmin.objects.get(linkedin_id=profil_linkedin_admin_id)# Nous sélectionnons le profil admin related
 
-    print(profil_linkedin_admin_id)
-    profil_linkedin_admin = ProfilLinkedinAdmin.objects.get(linkedin_id=profil_linkedin_admin_id)# Nous sélectionnons tous nos articles
-    print(profil_linkedin_admin)
+    profils_linkedin = ProfilLinkedin.objects.filter(project_related=project_id)# Nous sélectionnons tous nos articles
+     
+    state_custom = project_id
 
-    profils_linkedin = ProfilLinkedin.objects.filter(profil_linkedin_admin_id=profil_linkedin_admin_id)# Nous sélectionnons tous nos articles
-
-    linkedin_authorization_code_url_custom = 'https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=' + CLIENT_ID + '&redirect_uri=' + REDIRECT_URL + '&state=' + profil_linkedin_admin_id + '&scope=r_liteprofile%20r_emailaddress%20w_member_social'
+    linkedin_authorization_code_url_custom = 'https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=' + CLIENT_ID + '&redirect_uri=' + REDIRECT_URL + '&state=' + state_custom + '&scope=r_liteprofile%20r_emailaddress%20w_member_social'
     
-    return render(request, 'storiesof/linkedin.html',{'profil_linkedin_admin':profil_linkedin_admin,'profils_linkedin':profils_linkedin,'linkedin_authorization_code_url_custom':linkedin_authorization_code_url_custom})
+    return render(request, 'storiesof/linkedin.html',{'profil_linkedin_admin':profil_linkedin_admin,'profils_linkedin':profils_linkedin,'linkedin_authorization_code_url_custom':linkedin_authorization_code_url_custom,'profil_linkedin_admin_id':profil_linkedin_admin_id})
 
 
 

@@ -6,10 +6,13 @@ from django.utils.text import Truncator
 
 
 # Register your models here.
-from .models import ProfilLinkedin, ProfilLinkedinAdmin
+from .models import ProfilLinkedin, ProfilLinkedinAdmin, Project
 
 
 
-admin.site.register(ProfilLinkedin)
 admin.site.register(ProfilLinkedinAdmin)
+admin.site.register(Project)
+admin.site.register(ProfilLinkedin)
+
+
 

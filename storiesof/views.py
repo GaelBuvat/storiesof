@@ -116,8 +116,8 @@ def linkedin_auth(request):
             authorization_state_normal = authorization_state.replace("'>", "")
 
             project = Project.objects.get(id=authorization_state_normal)
-            project.photo_url = urlpicture
-            project.save()
+            
+            # project.photo_url = urlpicture project.save()
 
             profil_linkedin_admin_id = project.linkedin_admin_id.linkedin_id
 
@@ -151,8 +151,9 @@ def linkedin_auth(request):
             authorization_state_normal = authorization_state.replace("'>", "")
 
             project = Project.objects.get(id=authorization_state_normal)
-            project.photo_url = urlpicture
-            project.save()
+            
+            # project.photo_url = urlpicture project.save()
+
 
             profil_linkedin_admin_id = project.linkedin_admin_id.linkedin_id
 

@@ -11,9 +11,9 @@ from django.db import models
 
 class ProfilLinkedinAdmin(models.Model):
     #penser à rajouter l'id pour sauvegarder l'ID du recruteur ou de l'intéressé
-    linkedin_id = models.CharField(blank=True, max_length=100)
-    first_name = models.CharField(blank=True, max_length=100)
-    last_name = models.CharField(blank=True, max_length=100)
+    linkedin_id = models.CharField(blank=True, max_length=1000)
+    first_name = models.CharField(blank=True, max_length=1000)
+    last_name = models.CharField(blank=True, max_length=1000)
     photo = models.URLField(blank=True)
     r_liteprofile = models.TextField(null=True)
     
@@ -26,12 +26,12 @@ class ProfilLinkedinAdmin(models.Model):
 class ProfilLinkedin(models.Model):
     #penser à rajouter l'id pour sauvegarder l'ID du recruteur ou de l'intéressé
     project_related = models.ForeignKey('Project', on_delete=models.CASCADE)
-    linkedin_id = models.CharField(blank=True, max_length=100)
-    first_name = models.CharField(blank=True, max_length=100)
-    last_name = models.CharField(blank=True, max_length=100)
+    linkedin_id = models.CharField(blank=True, max_length=1000)
+    first_name = models.CharField(blank=True, max_length=1000)
+    last_name = models.CharField(blank=True, max_length=1000)
     photo = models.URLField(blank=True)
     photo_report = models.URLField(blank=True)
-    photo_static = models.CharField(blank=True, max_length=100)
+    photo_static = models.CharField(blank=True, max_length=1000)
     r_liteprofile = models.TextField(null=True)
     
     class Meta:
@@ -42,26 +42,15 @@ class ProfilLinkedin(models.Model):
 
 class Project(models.Model):
     #penser à rajouter l'id pour sauvegarder l'ID du recruteur ou de l'intéressé
-    project_name = models.CharField(blank=True, max_length=100)
+    project_name = models.CharField(blank=True, max_length=1000)
     linkedin_admin_id = models.ForeignKey('ProfilLinkedinAdmin', on_delete=models.CASCADE)
-    photo_url = models.CharField(blank=True, max_length=100)
+    photo_url = models.CharField(blank=True, max_length=1000)
 
     class Meta:
         verbose_name = "Project"
     
     def __str__(self):
         return self.project_name
-
-
-class OpenFiles():
-    def __init__(self):
-        self.files = []
-    def open(self, file_name):
-        f = open(file_name)
-        self.files.append(f)
-        return f
-    def close(self):
-        list(map(lambda f: f.close(), self.files))
 
 
 

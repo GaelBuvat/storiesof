@@ -18,8 +18,9 @@ import requests                                 # To use request package in curr
 
 CLIENT_ID = '789z7ztvzx8pgv'
 CLIENT_SECRET = 'y7NUzHM9yimbi2xZ'
-#  http://127.0.0.1:8001/linkedin_auth/ https://storiesof.herokuapp.com/linkedin_auth/
-REDIRECT_URL = 'http://127.0.0.1:8001/linkedin_auth/'
+#  http://127.0.0.1:8001/ https://storiesof.herokuapp.com/
+URL_RACINE = 'https://storiesof.herokuapp.com/'
+REDIRECT_URL = URL_RACINE+'linkedin_auth/'
 
 linkedin_authorization_code_url = 'https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id='+ CLIENT_ID + '&redirect_uri=' + REDIRECT_URL + '&state=' + 'fooobar' + '&scope=r_liteprofile%20r_emailaddress%20w_member_social'    
 
@@ -40,7 +41,7 @@ def weasyprint_func(request):
     print(r.text)
     pdf = weasyprint.HTML(r.text).write_pdf('google.pdf', )
     
-    response = redirect('http://127.0.0.1:8001/linkedin/fI5gp_jpKM/23')
+    response = redirect(URL_RACINE+'linkedin/fI5gp_jpKM/23')
     return response
 
 def report(request,profil_linkedin_admin_id,project_id):
@@ -59,7 +60,7 @@ def report_export(request,profil_linkedin_admin_id,project_id):
 
     import weasyprint
     from weasyprint import HTML, CSS
-    report_url = 'http://127.0.0.1:8001/report/' + profil_linkedin_admin_id + '/' + project_id
+    report_url = URL_RACINE + 'report/' + profil_linkedin_admin_id + '/' + project_id
 
     nb_profils = len(profils_linkedin)
     i=0
@@ -87,7 +88,7 @@ def report_export(request,profil_linkedin_admin_id,project_id):
 
     i=1
     if i==1:
-        response = redirect('http://127.0.0.1:8001/linkedin/' + profil_linkedin_admin_id + '/' + project_id)    
+        response = redirect(URL_RACINE+ 'linkedin/' + profil_linkedin_admin_id + '/' + project_id)    
         return response
     
 

@@ -253,7 +253,6 @@ def linkedin_auth(request):
             profil_linkedin_admin.first_name = firstName_fr_FR
             profil_linkedin_admin.last_name = lastName_fr_FR
             profil_linkedin_admin.photo = urlpicture3
-            profil_linkedin.photo_report = urlpicture1
             profil_linkedin_admin.r_liteprofile = data_load
             profil_linkedin_admin.save()
             return redirect('../linkedin_admin/'+linkedin_id)

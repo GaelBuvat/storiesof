@@ -30,7 +30,8 @@ class ProfilLinkedin(models.Model):
     first_name = models.CharField(blank=True, max_length=1000)
     last_name = models.CharField(blank=True, max_length=1000)
     photo = models.URLField(blank=True)
-    
+    photo_report = models.URLField(blank=True)
+    photo_static = models.CharField(blank=True, max_length=1000)
     r_liteprofile = models.TextField(null=True)
     
     class Meta:

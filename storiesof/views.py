@@ -12,7 +12,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.conf import settings
 
-from .models import ProfilLinkedin, ProfilLinkedinAdmin, Project, OpenFiles
+from .models import ProfilLinkedin, ProfilLinkedinAdmin, Project
 
 import requests                                 # To use request package in current program 
 

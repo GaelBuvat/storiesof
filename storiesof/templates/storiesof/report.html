@@ -1,0 +1,42 @@
+{% extends "base_report.html" %}
+{% load static %}
+
+
+    
+    {% block content %}
+
+
+
+    <article id="cover">
+      <h1>YOUR AMAZING TEAM STORY</h1>
+      <address>
+        Storiesof company
+        75013 Paris
+      </address>
+      <address>
+        hello@storiesof.herokuapp.com
+        +33 6 63 25 91 02
+        https://storiesof.herokuapp.com
+      </address>
+    </article>
+
+
+
+    <article id="offers">
+      <h2 id="offers-title">Story of</h2>
+      {% for profil_linkedin in profils_linkedin %}
+
+      <section>
+        <center>
+          <img src="{{ profil_linkedin.photo_static }}" alt="Image" height="10%" width="10%">
+          <h4 class="tm-gallery-title">{{ profil_linkedin.first_name }} {{ profil_linkedin.last_name }}</h4>
+          <h4> </h4>
+        </center>
+      </section>
+      {% endfor %}
+     
+    </article>
+
+              {% endblock %}
+
+

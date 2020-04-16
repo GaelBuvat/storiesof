@@ -30,6 +30,8 @@ class ProfilLinkedin(models.Model):
     first_name = models.CharField(blank=True, max_length=100)
     last_name = models.CharField(blank=True, max_length=100)
     photo = models.URLField(blank=True)
+    photo_report = models.URLField(blank=True)
+    photo_static = models.CharField(blank=True, max_length=100)
     r_liteprofile = models.TextField(null=True)
     
     class Meta:
@@ -43,11 +45,23 @@ class Project(models.Model):
     project_name = models.CharField(blank=True, max_length=100)
     linkedin_admin_id = models.ForeignKey('ProfilLinkedinAdmin', on_delete=models.CASCADE)
     photo_url = models.CharField(blank=True, max_length=100)
-    
+
     class Meta:
         verbose_name = "Project"
     
     def __str__(self):
         return self.project_name
+
+
+class OpenFiles():
+    def __init__(self):
+        self.files = []
+    def open(self, file_name):
+        f = open(file_name)
+        self.files.append(f)
+        return f
+    def close(self):
+        list(map(lambda f: f.close(), self.files))
+
 
 

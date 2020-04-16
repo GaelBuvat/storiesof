@@ -10,14 +10,16 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from .models import ProfilLinkedin, ProfilLinkedinAdmin, Project
+from django.conf import settings
+
+from .models import ProfilLinkedin, ProfilLinkedinAdmin, Project, OpenFiles
 
 import requests                                 # To use request package in current program 
 
 CLIENT_ID = '789z7ztvzx8pgv'
 CLIENT_SECRET = 'y7NUzHM9yimbi2xZ'
 #  http://127.0.0.1:8001/linkedin_auth/ https://storiesof.herokuapp.com/linkedin_auth/
-REDIRECT_URL = 'https://storiesof.herokuapp.com/linkedin_auth/'
+REDIRECT_URL = 'http://127.0.0.1:8001/linkedin_auth/'
 
 linkedin_authorization_code_url = 'https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id='+ CLIENT_ID + '&redirect_uri=' + REDIRECT_URL + '&state=' + 'fooobar' + '&scope=r_liteprofile%20r_emailaddress%20w_member_social'    
 
@@ -30,6 +32,69 @@ def linkedin_auth_url(request):
     
     response = redirect(linkedin_authorization_code_url)
     return response
+
+def weasyprint_func(request):
+    import weasyprint
+    from weasyprint import HTML, CSS
+    r = requests.get(request)
+    print(r.text)
+    pdf = weasyprint.HTML(r.text).write_pdf('google.pdf', )
+    
+    response = redirect('http://127.0.0.1:8001/linkedin/fI5gp_jpKM/23')
+    return response
+
+def report(request,profil_linkedin_admin_id,project_id):
+
+    profil_linkedin_admin = ProfilLinkedinAdmin.objects.get(linkedin_id=profil_linkedin_admin_id)# Nous sélectionnons le profil admin related
+
+    profils_linkedin = ProfilLinkedin.objects.filter(project_related=project_id)# Nous sélectionnons tous nos articles
+
+    return render(request, 'storiesof/report.html',{'profil_linkedin_admin':profil_linkedin_admin,'profils_linkedin':profils_linkedin,'profil_linkedin_admin_id':profil_linkedin_admin_id})
+
+
+def report_export(request,profil_linkedin_admin_id,project_id):
+    profil_linkedin_admin = ProfilLinkedinAdmin.objects.get(linkedin_id=profil_linkedin_admin_id)# Nous sélectionnons le profil admin related
+
+    profils_linkedin = ProfilLinkedin.objects.filter(project_related=project_id)# Nous sélectionnons tous nos articles
+
+    import weasyprint
+    from weasyprint import HTML, CSS
+    report_url = 'http://127.0.0.1:8001/report/' + profil_linkedin_admin_id + '/' + project_id
+
+    nb_profils = len(profils_linkedin)
+    i=0
+    while i < nb_profils:
+        profil_linkedin = profils_linkedin[i]
+        profil_linkedin_url = profil_linkedin.photo_report
+        fileName = 'static/assets/img/profiles/profile_'+profil_linkedin.first_name+'.png'
+        req = requests.get(profil_linkedin_url)
+        file = open(fileName, 'wb')
+        profil_linkedin.photo_static = '../../'+file.name
+        profil_linkedin.save()
+        for chunk in req.iter_content(100000):
+            file.write(chunk)
+        file.close()
+        i=i+1
+    
+
+    profils_linkedin = ProfilLinkedin.objects.filter(project_related=project_id)# Nous sélectionnons tous nos articles
+    
+    r = requests.get(report_url)
+    fichier_html = open("static/html/data.html", "w")
+    fichier_html.write(str(r.text))
+    fichier_html.close()
+    pdf = weasyprint.HTML(fichier_html.name).write_pdf('static/report/report.pdf', )
+
+    i=1
+    if i==1:
+        response = redirect('http://127.0.0.1:8001/linkedin/' + profil_linkedin_admin_id + '/' + project_id)    
+        return response
+    
+
+    return render(request, 'storiesof/report.html',{'profil_linkedin_admin':profil_linkedin_admin,'profils_linkedin':profils_linkedin,'linkedin_authorization_code_url_custom':linkedin_authorization_code_url_custom,'profil_linkedin_admin_id':profil_linkedin_admin_id})
+
+
+
 
 def linkedin_homepage(request):
     
@@ -100,9 +165,14 @@ def linkedin_auth(request):
     displayImage = profilePicture['displayImage~']
     elements = displayImage['elements']
     profilepic3 = elements[3]
-    identifiers = profilepic3['identifiers']
-    identifiers0 = identifiers[0]
-    urlpicture = identifiers0['identifier']
+    identifiers3 = profilepic3['identifiers']
+    identifiers3_0 = identifiers3[0]
+    urlpicture3 = identifiers3_0['identifier']
+
+    profilepic1 = elements[1]
+    identifiers1 = profilepic1['identifiers']
+    identifiers1_0 = identifiers1[0]
+    urlpicture1 = identifiers1_0['identifier']
 
 
     profil_admin_verif = ProfilLinkedinAdmin.objects.filter(linkedin_id=linkedin_id).exists()
@@ -126,12 +196,14 @@ def linkedin_auth(request):
             if profil_linkedin_verif:
                 return redirect('../linkedin/'+profil_linkedin_admin_id+'/'+authorization_state_normal)
             else:
+                
                 profil_linkedin = ProfilLinkedin()
                 profil_linkedin.project_related = project
                 profil_linkedin.linkedin_id = linkedin_id
                 profil_linkedin.first_name = firstName_fr_FR
                 profil_linkedin.last_name = lastName_fr_FR
-                profil_linkedin.photo = urlpicture
+                profil_linkedin.photo = urlpicture3
+                profil_linkedin.photo_report = urlpicture1
                 profil_linkedin.r_liteprofile = data_load
                 profil_linkedin.save()
                 return redirect('../linkedin/'+profil_linkedin_admin_id+'/'+authorization_state_normal)
@@ -143,7 +215,8 @@ def linkedin_auth(request):
             profil_linkedin_admin.linkedin_id = linkedin_id
             profil_linkedin_admin.first_name = firstName_fr_FR
             profil_linkedin_admin.last_name = lastName_fr_FR
-            profil_linkedin_admin.photo = urlpicture
+            profil_linkedin_admin.photo = urlpicture3
+            profil_linkedin.photo_report = urlpicture1
             profil_linkedin_admin.r_liteprofile = data_load
             profil_linkedin_admin.save()
             return redirect('../linkedin_admin/'+linkedin_id)
@@ -167,7 +240,8 @@ def linkedin_auth(request):
                 profil_linkedin.linkedin_id = linkedin_id
                 profil_linkedin.first_name = firstName_fr_FR
                 profil_linkedin.last_name = lastName_fr_FR
-                profil_linkedin.photo = urlpicture
+                profil_linkedin.photo = urlpicture3
+                profil_linkedin.photo_report = urlpicture1
                 profil_linkedin.r_liteprofile = data_load
                 profil_linkedin.save()
                 return redirect('../linkedin/'+profil_linkedin_admin_id+'/'+authorization_state_normal)
@@ -177,7 +251,8 @@ def linkedin_auth(request):
             profil_linkedin_admin.linkedin_id = linkedin_id
             profil_linkedin_admin.first_name = firstName_fr_FR
             profil_linkedin_admin.last_name = lastName_fr_FR
-            profil_linkedin_admin.photo = urlpicture
+            profil_linkedin_admin.photo = urlpicture3
+            profil_linkedin.photo_report = urlpicture1
             profil_linkedin_admin.r_liteprofile = data_load
             profil_linkedin_admin.save()
             return redirect('../linkedin_admin/'+linkedin_id)
@@ -196,7 +271,8 @@ def linkedin_auth(request):
             profil_linkedin.linkedin_id = linkedin_id
             profil_linkedin.first_name = firstName_fr_FR
             profil_linkedin.last_name = lastName_fr_FR
-            profil_linkedin.photo = urlpicture
+            profil_linkedin.photo = urlpicture3
+            profil_linkedin.photo_report = urlpicture1
             profil_linkedin.r_liteprofile = data_load
             profil_linkedin.save()
             return redirect('../linkedin/'+profil_linkedin_admin_id+'/'+authorization_state_normal)
@@ -211,12 +287,11 @@ def linkedin(request,profil_linkedin_admin_id,project_id):
     profil_linkedin_admin = ProfilLinkedinAdmin.objects.get(linkedin_id=profil_linkedin_admin_id)# Nous sélectionnons le profil admin related
 
     profils_linkedin = ProfilLinkedin.objects.filter(project_related=project_id)# Nous sélectionnons tous nos articles
-     
     state_custom = project_id
 
     linkedin_authorization_code_url_custom = 'https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=' + CLIENT_ID + '&redirect_uri=' + REDIRECT_URL + '&state=' + state_custom + '&scope=r_liteprofile%20r_emailaddress%20w_member_social'
     
-    return render(request, 'storiesof/linkedin.html',{'profil_linkedin_admin':profil_linkedin_admin,'profils_linkedin':profils_linkedin,'linkedin_authorization_code_url_custom':linkedin_authorization_code_url_custom,'profil_linkedin_admin_id':profil_linkedin_admin_id})
+    return render(request, 'storiesof/linkedin.html',{'profil_linkedin_admin':profil_linkedin_admin,'profils_linkedin':profils_linkedin,'linkedin_authorization_code_url_custom':linkedin_authorization_code_url_custom,'profil_linkedin_admin_id':profil_linkedin_admin_id,'project_id':project_id})
 
 
 

@@ -29,5 +29,11 @@ urlpatterns = [
     path('linkedin_admin/<profil_linkedin_admin_id>', views.linkedin_admin, name='linkedin_admin'),
     path('linkedin_auth/', views.linkedin_auth, name='linkedin_auth'),
     path('linkedin/<profil_linkedin_admin_id>/<project_id>', views.linkedin, name='linkedin'),
-    path('create_project/<profil_linkedin_admin_id>', views.create_project, name='create_project')
+    path('create_project/<profil_linkedin_admin_id>', views.create_project, name='create_project'),
+    path('weasyprint_func/', views.weasyprint_func, name='weasyprint_func'),
+    path('report/<profil_linkedin_admin_id>/<project_id>', views.report, name='report'),
+    path('report_export/<profil_linkedin_admin_id>/<project_id>', views.report_export, name='report_export'),
+
+
+
 ]

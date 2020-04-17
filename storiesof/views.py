@@ -195,7 +195,9 @@ def linkedin_auth(request):
             if profil_linkedin_verif:
                 return redirect('../linkedin/'+profil_linkedin_admin_id+'/'+authorization_state_normal)
             else:
-                
+                project.photo_url = urlpicture3
+                project.save()
+
                 profil_linkedin = ProfilLinkedin()
                 profil_linkedin.project_related = project
                 profil_linkedin.linkedin_id = linkedin_id
@@ -234,6 +236,9 @@ def linkedin_auth(request):
             if profil_linkedin_verif:
                 return redirect('../linkedin/'+profil_linkedin_admin_id+'/'+authorization_state_normal)
             else:
+                project.photo_url = urlpicture3
+                project.save()
+
                 profil_linkedin = ProfilLinkedin()
                 profil_linkedin.project_related = project
                 profil_linkedin.linkedin_id = linkedin_id
@@ -263,6 +268,9 @@ def linkedin_auth(request):
 
 
             profil_linkedin_admin_id = project.linkedin_admin_id.linkedin_id
+
+            project.photo_url = urlpicture3
+            project.save()
 
             profil_linkedin = ProfilLinkedin()
             profil_linkedin.project_related = project

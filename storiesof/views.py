@@ -19,7 +19,7 @@ import requests                                 # To use request package in curr
 CLIENT_ID = '789z7ztvzx8pgv'
 CLIENT_SECRET = 'y7NUzHM9yimbi2xZ'
 #  http://127.0.0.1:8001/ https://storiesof.herokuapp.com/
-URL_RACINE = 'https://storiesof.herokuapp.com/'
+URL_RACINE = 'http://127.0.0.1:8001/'
 REDIRECT_URL = URL_RACINE+'linkedin_auth/'
 
 linkedin_authorization_code_url = 'https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id='+ CLIENT_ID + '&redirect_uri=' + REDIRECT_URL + '&state=' + 'fooobar' + '&scope=r_liteprofile%20r_emailaddress%20w_member_social'    
@@ -84,14 +84,16 @@ def report_export(request,profil_linkedin_admin_id,project_id):
     fichier_html = open("static/html/data.html", "w")
     fichier_html.write(str(r.text))
     fichier_html.close()
-    pdf = weasyprint.HTML(fichier_html.name).write_pdf('static/report/report.pdf', )
+    report_url = 'static/report/report_'+project_id+'.pdf'
+    pdf = weasyprint.HTML(fichier_html.name).write_pdf(report_url, )
+    import webbrowser
+    webbrowser.open_new_tab(URL_RACINE+ 'static/report/report_' + project_id + '.pdf')
 
     i=1
     if i==1:
         response = redirect(URL_RACINE+ 'linkedin/' + profil_linkedin_admin_id + '/' + project_id)    
         return response
     
-
     return render(request, 'storiesof/report.html',{'profil_linkedin_admin':profil_linkedin_admin,'profils_linkedin':profils_linkedin,'linkedin_authorization_code_url_custom':linkedin_authorization_code_url_custom,'profil_linkedin_admin_id':profil_linkedin_admin_id})
 
 
@@ -101,11 +103,7 @@ def linkedin_homepage(request):
     
     return render(request, 'storiesof/linkedin_homepage.html',{'linkedin_authorization_code_url':linkedin_authorization_code_url})
 
-def linkedin_admin(request,profil_linkedin_admin_id):
-    projects = Project.objects.filter(linkedin_admin_id__linkedin_id=profil_linkedin_admin_id)# Nous sélectionnons tous nos articles
-    profil_admin = ProfilLinkedinAdmin.objects.get(linkedin_id=profil_linkedin_admin_id)
 
-    return render(request, 'storiesof/linkedin_admin.html',{'projects':projects, 'profil_linkedin_admin_id':profil_linkedin_admin_id,'profil_admin':profil_admin})
 
 def create_project(request,profil_linkedin_admin_id):
     profil_admin = ProfilLinkedinAdmin.objects.get(linkedin_id=profil_linkedin_admin_id)
@@ -280,7 +278,26 @@ def linkedin_auth(request):
     return render(request, 'storiesof/linkedin_auth.html')
 
 
+def linkedin_admin(request,profil_linkedin_admin_id):
+    projects = Project.objects.filter(linkedin_admin_id__linkedin_id=profil_linkedin_admin_id)# Nous sélectionnons tous nos articles
+    profil_admin = ProfilLinkedinAdmin.objects.get(linkedin_id=profil_linkedin_admin_id)
+    projects_nb = len(projects)
 
+    i=0
+    profils_nb = 0
+    profil_project_nb = []
+    while i < projects_nb:
+        project_id = projects[i].id
+        profils_linkedin = ProfilLinkedin.objects.filter(project_related=project_id)# Nous sélectionnons tous nos articles
+        profils_nb = profils_nb + len(profils_linkedin)
+        profil_project_nb = profil_project_nb + [len(profils_linkedin)]
+
+        project_count = [project_id % projects_nb]
+        profil_project_nb = profil_project_nb + project_count
+        print(profil_project_nb)
+        i+=1
+
+    return render(request, 'storiesof/linkedin_admin.html',{'projects':projects, 'profil_linkedin_admin_id':profil_linkedin_admin_id,'profil_admin':profil_admin,'projects_nb':projects_nb,'profils_nb':profils_nb,'profil_project_nb':profil_project_nb})
 
 def linkedin(request,profil_linkedin_admin_id,project_id):
     

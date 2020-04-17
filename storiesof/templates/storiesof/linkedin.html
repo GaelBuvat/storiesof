@@ -9,10 +9,13 @@
                                     <div class="col-lg-8">
                                         <h1 class="page-header-title mb-3">The A team</h1>
                                         <p class="page-header-text mb-0">These are the amazing people you work with!</p>
-                                        <p>
-                                        <a class="btn-teal btn rounded-pill px-4 ml-lg-4" onclick="copyToClipboard('<p>{{ linkedin_authorization_code_url_custom }}</p>')"><i class="fas fa-arrow-right ml-1"></i> Copy to clipboard the link to invite your collegues to join the adventure <i class="fas fa-arrow-left ml-1"></i></a>
+                                        <hr class="my-2" color="#fff">
+                                        <h1 class="page-header-title mb-3">Steps</h1>
 
-                                   <script type="text/javascript">
+                                        <div class="badge badge-pill badge-primary-soft text-primary badge-marketing mb-3">Step n°1: Send this personal link to each teamate you want to join this adventure</div>
+                                        <p>
+                                        <a class="btn-teal btn rounded-pill px-4 ml-lg-4" onclick="copyToClipboard('<p>{{ linkedin_authorization_code_url_custom }}</p>')"><i class="fas fa-arrow-right ml-1"></i> Click to copy clipboard to get the magic link <i class="fas fa-arrow-left ml-1"></i></a>
+                                        <script type="text/javascript">
                                         function copyToClipboard(element) {
                                             var $temp = $("<input>");
                                             $("body").append($temp);
@@ -20,9 +23,15 @@
                                             document.execCommand("copy");
                                             $temp.remove();
                                         }
-                                    </script>
+                                        </script>
+                                        </p>
+                                        <div class="badge badge-pill badge-primary-soft text-primary badge-marketing mb-3">Step n°2: When everyone is aboard, download the book of your story</div>
+
+                                        
+                                            <a class="btn-teal btn rounded-pill px-4 ml-lg-4" href="../../report_export/{{ profil_linkedin_admin_id }}/{{ project_id }}">Download your company story now!</a>
                                         </p>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -34,19 +43,20 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-6 col-xl-4 mb-5 mt-n5">
-                                    <a class="card card-portfolio h-100" href="../../linkedin_admin/{{ profil_linkedin_admin_id }}"
-                                        ><img class="card-img-top" src="https://source.unsplash.com/n3sqjJzZiBM/400x300" alt="..." />
-                                        <div class="card-body"><div class="card-title"><p class="btn btn-teal btn-marketing rounded-pill lift lift-sm" href=""><i class="fas fa-arrow-left ml-1"></i>Go back to your stories dashboard</p></div></div></a
-                                    >
+                                    <a class="card card-portfolio h-100" href="../../linkedin_admin/{{ profil_linkedin_admin_id }}">
+                                            <img class="card-img-top" src="https://source.unsplash.com/n3sqjJzZiBM/400x300" alt="..." />
+                                            <div class="card-title"><p></p><p class="btn btn-teal btn-marketing rounded-pill lift lift-sm" href=""><i class="fas fa-arrow-left ml-1"></i>Go back to your stories dashboard</p></div></a>
                                 </div>
                                 {% for profil_linkedin in profils_linkedin %}
 
-                                <div class="col-md-6 col-xl-4 mb-5 mt-n5">
-                                    <a class="card card-portfolio h-100" href="#!"
-                                        ><img class="card-img-top" src="{{ profil_linkedin.photo }}" alt="..." />
-                                        <div class="card-body"><div class="card-title">{{ profil_linkedin.first_name }} {{ profil_linkedin.last_name }}</div></div></a
-                                    >
+                                <div class="col-xl-3 col-lg-4 col-md-6 mb-5">
+                                    <a class="card lift h-100" href="#!">
+                                        <img class="card-img-top" src="{{ profil_linkedin.photo }}" alt="...">
+                                        <div class="card-body p-3">
+                                            <center><div class="card-title small mb-0">{{ profil_linkedin.first_name }} {{ profil_linkedin.last_name }}</div></center>
+                                        </div></a>
                                 </div>
+
 
                                 {% endfor %}
 

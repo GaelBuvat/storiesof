@@ -7,10 +7,11 @@
                             <div class="container">
                                 <div class="row justify-content-center">
                                     <div class="col-xl-8 col-lg-10 text-center">
-                                        <h1 class="page-header-title">Buy and sell used items</h1>
-                                        <p class="page-header-text mb-5">Out with the old, in with the new! Your trash is another's treasure. Start making money, or find great deals today!</p>
-                                        <a class="btn btn-marketing rounded-pill btn-teal" href="#!">Start Selling</a><a class="btn btn-link btn-marketing rounded-pill" href="#!">Browse Categories</a>
+                                        <h1 class="page-header-title">Welcome back {{ profil_admin.first_name }}!</h1>
+                                        <p class="page-header-text mb-5">Let's write new stories today!</p>
+                                        
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -45,7 +46,7 @@
                             <div class="row">
                                 <div class="col-xl-3 col-lg-4 col-md-6 mb-5">
                                     <a class="card lift h-100" href="../create_project/{{ profil_linkedin_admin_id }}"
-                                        ><div class="card-flag card-flag-dark card-flag-top-right card-flag-lg">500</div>
+                                        ><div class="card-flag card-flag-dark card-flag-top-right card-flag-lg">{{ projects_nb }} stories</div>
                                         <img class="card-img-top" src="{{ profil_admin.photo }}" alt="..." />
 
                                         <div class="card-body p-3">
@@ -57,11 +58,11 @@
 
                                 <div class="col-xl-3 col-lg-4 col-md-6 mb-5">
                                     <a class="card lift h-100" href="../linkedin/{{ project.linkedin_admin_id.linkedin_id }}/{{ project.id }}"
-                                        ><div class="card-flag card-flag-dark card-flag-top-right card-flag-lg">$115</div>
+                                        >
                                         <img class="card-img-top" src="{{ project.photo_url }}" alt="..." />
                                         <div class="card-body p-3">
-                                            <div class="card-title small mb-0">{{ project.id }}</div>
-                                            <div class="text-xs text-gray-500">Readcaster, CO &middot; 2 days ago</div>
+                                            <div class="card-title small mb-0">Story name</div>
+                                            <div class="text-xs text-gray-500">Company</div>
                                         </div></a
                                     >
                                 </div>
@@ -73,39 +74,33 @@
                     <hr class="my-0" />
                     <section class="bg-light py-10">
                         <div class="container">
-                            <h2 class="mb-4">Browse by city</h2>
-                            <div class="row">
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="mb-2"><a href="#!">Atlanta, GA</a></div>
-                                    <div class="mb-2"><a href="#!">Austin, TX</a></div>
-                                    <div class="mb-2"><a href="#!">Baltimore, MD</a></div>
-                                    <div class="mb-2"><a href="#!">Boston, MA</a></div>
-                                    <div class="mb-2"><a href="#!">Chicago, IL</a></div>
-                                    <div class="mb-2"><a href="#!">Cleveland, OH</a></div>
+                            <h2 class="mb-4">Stats</h2>
+                            <p class="page-header-text mb-5">Here's the few statitics around the stories you started.</p>
+
+                            <div class="row text-center">
+                                <div class="col-lg-4 mb-5 mb-lg-0">
+                                    <a class="card card-link border-top border-top-lg border-primary h-100 lift" href="#!"><div class="card-body p-5">
+                                            <div class="icon-stack icon-stack-lg bg-primary-soft text-primary mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fas fa-book"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+                                            <h6>Number of stories</h6>
+                                            <p class="card-text">Thank for all your stories you told!</p>
+                                        </div>
+                                        <div class="card-footer bg-transparent pt-0 pb-5"><div class="badge badge-pill badge-light font-weight-normal px-3 py-2">{{ projects_nb }} stories</div></div></a>
                                 </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="mb-2"><a href="#!">Columbus, OH</a></div>
-                                    <div class="mb-2"><a href="#!">Dallas, TX</a></div>
-                                    <div class="mb-2"><a href="#!">Denver, CO</a></div>
-                                    <div class="mb-2"><a href="#!">Detroit, MI</a></div>
-                                    <div class="mb-2"><a href="#!">Houston, TX</a></div>
-                                    <div class="mb-2"><a href="#!">Las Vegas, NV</a></div>
+                                <div class="col-lg-4 mb-5 mb-lg-0">
+                                    <a class="card card-link border-top border-top-lg border-green h-100 lift" href="#!"><div class="card-body p-5">
+                                            <div class="icon-stack icon-stack-lg bg-green-soft text-green mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fas fa-user-check"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
+                                            <h6>Number of teamates</h6>
+                                            <p class="card-text">Thanks to you, you manage to get aboard</p>
+                                        </div>
+                                        <div class="card-footer bg-transparent pt-0 pb-5"><div class="badge badge-pill badge-light font-weight-normal px-3 py-2">{{ profils_nb }} teamates</div></div></a>
                                 </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="mb-2"><a href="#!">Los Angeles, CA</a></div>
-                                    <div class="mb-2"><a href="#!">Miami, FL</a></div>
-                                    <div class="mb-2"><a href="#!">Nashville, TN</a></div>
-                                    <div class="mb-2"><a href="#!">New York, NY</a></div>
-                                    <div class="mb-2"><a href="#!">Orlando, FL</a></div>
-                                    <div class="mb-2"><a href="#!">Philadelphia, PA</a></div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="mb-2"><a href="#!">Phoenix, AZ</a></div>
-                                    <div class="mb-2"><a href="#!">Portland, OR</a></div>
-                                    <div class="mb-2"><a href="#!">San Francisco, CA</a></div>
-                                    <div class="mb-2"><a href="#!">Seattle, WA</a></div>
-                                    <div class="mb-2"><a href="#!">Tampa, FL</a></div>
-                                    <div class="mb-2"><a href="#!">See more...</a></div>
+                                <div class="col-lg-4">
+                                    <a class="card card-link border-top border-top-lg border-yellow h-100 lift" href="#!"><div class="card-body p-5">
+                                            <div class="icon-stack icon-stack-lg bg-yellow-soft text-yellow mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
+                                            <h6>Billing</h6>
+                                            <p class="card-text">Issues with payments or invoicing.</p>
+                                        </div>
+                                        <div class="card-footer bg-transparent pt-0 pb-5"><div class="badge badge-pill badge-light font-weight-normal px-3 py-2">14 Entries</div></div></a>
                                 </div>
                             </div>
                         </div>

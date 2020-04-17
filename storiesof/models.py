@@ -45,12 +45,12 @@ class Project(models.Model):
     project_name = models.CharField(blank=True, max_length=1000)
     linkedin_admin_id = models.ForeignKey('ProfilLinkedinAdmin', on_delete=models.CASCADE)
     photo_url = models.CharField(blank=True, max_length=1000)
-
+    
     class Meta:
         verbose_name = "Project"
     
     def __str__(self):
-        return self.id
+        return self.project_name
 
 
 

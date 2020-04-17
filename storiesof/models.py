@@ -50,7 +50,7 @@ class Project(models.Model):
         verbose_name = "Project"
     
     def __str__(self):
-        return self.project_name
+        return self.id
 
 
 

@@ -19,11 +19,13 @@ import requests                                 # To use request package in curr
 CLIENT_ID = '789z7ztvzx8pgv'
 CLIENT_SECRET = 'y7NUzHM9yimbi2xZ'
 #  http://127.0.0.1:8001/ https://storiesof.herokuapp.com/
-URL_RACINE = 'http://127.0.0.1:8001/'
+URL_RACINE = 'https://storiesof.herokuapp.com/'
 REDIRECT_URL = URL_RACINE+'linkedin_auth/'
 
 linkedin_authorization_code_url = 'https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id='+ CLIENT_ID + '&redirect_uri=' + REDIRECT_URL + '&state=' + 'fooobar' + '&scope=r_liteprofile%20r_emailaddress%20w_member_social'    
 
+def staticreport(request):
+    return render(request, 'static/report/')
 
 def redirect_view(request,url):
     response = redirect(url)
@@ -100,8 +102,17 @@ def report_export(request,profil_linkedin_admin_id,project_id):
 
 
 def linkedin_homepage(request):
-    
-    return render(request, 'storiesof/linkedin_homepage.html',{'linkedin_authorization_code_url':linkedin_authorization_code_url})
+    projects = Project.objects.all()
+    profils_linkedin = ProfilLinkedin.objects.all()
+
+    projects_nb = len(projects)
+    profils_linkedin_nb = len(profils_linkedin)
+
+    import os
+    report_nb = sum([len(files) for r, d, files in os.walk(URL_RACINE+'static/report/')])
+    print(report_nb)
+
+    return render(request, 'storiesof/linkedin_homepage.html',{'linkedin_authorization_code_url':linkedin_authorization_code_url,'projects_nb':projects_nb,'profils_linkedin_nb':profils_linkedin_nb,'report_nb':report_nb})
 
 
 

@@ -33,7 +33,11 @@ urlpatterns = [
     path('weasyprint_func/', views.weasyprint_func, name='weasyprint_func'),
     path('report/<profil_linkedin_admin_id>/<project_id>', views.report, name='report'),
     path('report_export/<profil_linkedin_admin_id>/<project_id>', views.report_export, name='report_export'),
-
+    path('static/report/',views.staticreport),
 
 
 ]
+from django.conf.urls.static import static
+from django.conf import settings
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

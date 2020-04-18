@@ -99,7 +99,7 @@ def report_export(request,profil_linkedin_admin_id,project_id):
 
 
     import webbrowser
-    webbrowser.open(url, new=0, autoraise=True)
+    webbrowser.open(url, new=2, autoraise=True)
 
     i=1
     if i==1:

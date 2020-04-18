@@ -19,7 +19,7 @@ import requests                                 # To use request package in curr
 CLIENT_ID = '789z7ztvzx8pgv'
 CLIENT_SECRET = 'y7NUzHM9yimbi2xZ'
 #  http://127.0.0.1:8001/ https://storiesof.herokuapp.com/
-URL_RACINE = 'https://storiesof.herokuapp.com/'
+URL_RACINE = 'http://127.0.0.1:8001/'
 REDIRECT_URL = URL_RACINE+'linkedin_auth/'
 
 linkedin_authorization_code_url = 'https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id='+ CLIENT_ID + '&redirect_uri=' + REDIRECT_URL + '&state=' + 'fooobar' + '&scope=r_liteprofile%20r_emailaddress%20w_member_social'    
@@ -89,21 +89,9 @@ def report_export(request,profil_linkedin_admin_id,project_id):
     report_url = 'static/report/report_'+project_id+'.pdf'
     pdf = weasyprint.HTML(fichier_html.name).write_pdf(report_url, )
 
-    
-    url = URL_RACINE+'static/report/report_'+project_id+'.pdf'
-
-    import wget
-    import os
-
-    download_path='/'.join( os.getcwd().split('/')[:3] ) + '/Downloads' 
-    file_url = url
-    file_name = wget.download(file_url,download_path+'/cat4.pdf')
-
-
-
     i=1
     if i==1:
-        response = redirect(URL_RACINE+ 'linkedin/' + profil_linkedin_admin_id + '/' + project_id)    
+        response = redirect(URL_RACINE+'static/report/report_'+project_id+'.pdf')    
         return response
     
     return render(request, 'storiesof/report.html',{'profil_linkedin_admin':profil_linkedin_admin,'profils_linkedin':profils_linkedin,'linkedin_authorization_code_url_custom':linkedin_authorization_code_url_custom,'profil_linkedin_admin_id':profil_linkedin_admin_id})
@@ -238,7 +226,6 @@ def linkedin_auth(request):
             profil_linkedin_admin.first_name = firstName_fr_FR
             profil_linkedin_admin.last_name = lastName_fr_FR
             profil_linkedin_admin.photo = urlpicture3
-            profil_linkedin.photo_report = urlpicture1
             profil_linkedin_admin.r_liteprofile = data_load
             profil_linkedin_admin.save()
             return redirect('../linkedin_admin/'+linkedin_id)

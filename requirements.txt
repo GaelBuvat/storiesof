@@ -59,5 +59,6 @@ virtualenv==20.0.13
 wcwidth==0.1.9
 WeasyPrint==51
 webencodings==0.5.1
+wget==3.2
 whitenoise==5.0.1
 zipp==3.1.0

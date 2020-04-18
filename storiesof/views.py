@@ -88,8 +88,18 @@ def report_export(request,profil_linkedin_admin_id,project_id):
     fichier_html.close()
     report_url = 'static/report/report_'+project_id+'.pdf'
     pdf = weasyprint.HTML(fichier_html.name).write_pdf(report_url, )
+
+    
+    url = URL_RACINE+'static/report/report_'+project_id+'.pdf'
+
+    import wget
+
+    file_url = url
+    file_name = wget.download(file_url)
+
+
     import webbrowser
-    webbrowser.open_new_tab(URL_RACINE+ 'static/report/report_' + project_id + '.pdf')
+    webbrowser.open(url, new=0, autoraise=True)
 
     i=1
     if i==1:

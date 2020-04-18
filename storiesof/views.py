@@ -93,13 +93,13 @@ def report_export(request,profil_linkedin_admin_id,project_id):
     url = URL_RACINE+'static/report/report_'+project_id+'.pdf'
 
     import wget
+    import os
 
+    download_path='/'.join( os.getcwd().split('/')[:3] ) + '/Downloads' 
     file_url = url
-    file_name = wget.download(file_url)
+    file_name = wget.download(file_url,download_path+'/cat4.pdf')
 
 
-    import webbrowser
-    webbrowser.open(url, new=2, autoraise=True)
 
     i=1
     if i==1:

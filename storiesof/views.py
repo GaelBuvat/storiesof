@@ -340,7 +340,7 @@ def linkedin(request,profil_linkedin_admin_id,project_id):
         charge = stripe.Charge.create(
             customer=customer.id,
             amount=9000,
-            currency='eur',
+            currency='usd',
             description='Luxury book'
         )
         payed = True

@@ -63,3 +63,8 @@
     $(window).scroll(navbarCollapse);
 
 })(jQuery);
+
+// Set your publishable key: remember to change this to your live publishable key in production
+// See your keys here: https://dashboard.stripe.com/account/apikeys
+var stripe = Stripe('pk_test_dWPGdJ4zEzeZSbzt4NYko9QO00pOyCnarw');
+var elements = stripe.elements();

@@ -315,6 +315,14 @@ def linkedin_admin(request,profil_linkedin_admin_id):
 
     return render(request, 'storiesof/linkedin_admin.html',{'projects':projects, 'profil_linkedin_admin_id':profil_linkedin_admin_id,'profil_admin':profil_admin,'projects_nb':projects_nb,'profils_nb':profils_nb,'profil_project_nb':profil_project_nb})
 
+import stripe
+
+
+pub_key = 'pk_test_dWPGdJ4zEzeZSbzt4NYko9QO00pOyCnarw'
+secret_key = 'sk_test_PSzgLd5UfWwzWgOzQtVbAI2q00K0R7BBna'
+
+stripe.api_key = secret_key
+
 def linkedin(request,profil_linkedin_admin_id,project_id):
     
     profil_linkedin_admin = ProfilLinkedinAdmin.objects.get(linkedin_id=profil_linkedin_admin_id)# Nous sélectionnons le profil admin related
@@ -324,8 +332,45 @@ def linkedin(request,profil_linkedin_admin_id,project_id):
 
     linkedin_authorization_code_url_custom = 'https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=' + CLIENT_ID + '&redirect_uri=' + REDIRECT_URL + '&state=' + state_custom + '&scope=r_liteprofile%20r_emailaddress%20w_member_social'
     
-    return render(request, 'storiesof/linkedin.html',{'profil_linkedin_admin':profil_linkedin_admin,'profils_linkedin':profils_linkedin,'linkedin_authorization_code_url_custom':linkedin_authorization_code_url_custom,'profil_linkedin_admin_id':profil_linkedin_admin_id,'project_id':project_id})
+    payed = False
+    if request.method == "POST":
+        form = request.POST
+        customer = stripe.Customer.create(email=form['stripeEmail'], source=form['stripeToken'])
+
+        charge = stripe.Charge.create(
+            customer=customer.id,
+            amount=8000,
+            currency='eur',
+            description='The Product'
+        )
+        payed = True
 
 
+
+    return render(request, 'storiesof/linkedin.html',{'profil_linkedin_admin':profil_linkedin_admin,'profils_linkedin':profils_linkedin,'linkedin_authorization_code_url_custom':linkedin_authorization_code_url_custom,'profil_linkedin_admin_id':profil_linkedin_admin_id,'project_id':project_id,'pub_key':pub_key,'payed':payed})
+
+
+
+def thanks(request,profil_linkedin_admin_id,project_id):
+
+
+    return render(request,'storiesof/linkedin.html')
+
+def pay(request,profil_linkedin_admin_id,project_id):
+    
+
+    form = request.POST
+    print(form['stripeEmail'])
+    customer = stripe.Customer.create(email=form['stripeEmail'], source=form['stripeToken'])
+
+    charge = stripe.Charge.create(
+        customer=customer.id,
+        amount=8000,
+        currency='eur',
+        description='The Product'
+    )
+
+    url = URL_RACINE + 'linkedin/' + profil_linkedin_admin_id + '/' + project_id
+    return redirect(url)
 
 

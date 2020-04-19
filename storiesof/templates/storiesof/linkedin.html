@@ -2,8 +2,13 @@
 
     
     {% block content %}
+                                                  
                     <header class="page-header page-header-dark bg-gradient-primary-to-secondary">
+                        {% if payed %}
+                            <div class="alert alert-info">Your order was accepted! You will receive a confirmation email.</div> 
+                        {% endif %}
                         <div class="page-header-content">
+                            
                             <div class="container text-center">
                                 <div class="row justify-content-center">
                                     <div class="col-lg-8">
@@ -30,6 +35,9 @@
                                         
                                             <a class="btn-teal btn rounded-pill px-4 ml-lg-4" href="../../report_export/{{ profil_linkedin_admin_id }}/{{ project_id }}">Download your company story now!</a>
                                         </p>
+                                        
+
+
                                     </div>
 
                                 </div>
@@ -64,6 +72,41 @@
                         </div>
                     </section>
                    
+                                        <section class="bg-light py-10">
+
+                    <div class="container z-1">
+                            <div class="card mb-5 aos-init aos-animate" data-aos="fade-right">
+                                <div class="row no-gutters">
+                                    <div class="col-md-6"><img class="img-fluid" src="../../static/assets/img/luxury_book.png
+                                        " alt="..."></div>
+                                    <div class="col-md-6">
+                                        <div class="card-body d-flex align-items-center justify-content-center h-100 flex-column">
+                                            <h3 class="card-title font-weight-bold text-uppercase mb-2">Luxury book</h3>
+                                            <p class="card-text font-weight-light mb-4">80€</p>
+                                            <div class="btn btn-outline-dark btn-marketing rounded-pill" >
+                                            <form action="../../../linkedin/{{ profil_linkedin_admin_id }}/{{ project_id }}" method="POST">
+                                            {% csrf_token %}
+
+                                          <script
+                                            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                            data-key="{{ pub_key }}"
+                                            data-amount="8000"
+                                            data-name="Luxury book"
+                                            data-description="Stories"
+                                            data-image="../../static/assets/img/logo.png"
+                                            data-locale="auto">
+                                          </script>
+                                        </form>
+                                    </div>
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </section>
+
                 </main>
             </div>
             {% endblock %}

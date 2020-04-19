@@ -19,7 +19,7 @@ import requests                                 # To use request package in curr
 CLIENT_ID = '789z7ztvzx8pgv'
 CLIENT_SECRET = 'y7NUzHM9yimbi2xZ'
 #  http://127.0.0.1:8001/ https://storiesof.herokuapp.com/
-URL_RACINE = 'http://127.0.0.1:8001/'
+URL_RACINE = 'https://storiesof.herokuapp.com/'
 REDIRECT_URL = URL_RACINE+'linkedin_auth/'
 
 linkedin_authorization_code_url = 'https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id='+ CLIENT_ID + '&redirect_uri=' + REDIRECT_URL + '&state=' + 'fooobar' + '&scope=r_liteprofile'    

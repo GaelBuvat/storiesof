@@ -14,37 +14,33 @@
                                     <div class="col-lg-8">
                                         <h1 class="page-header-title mb-3">The A team</h1>
                                         <p class="page-header-text mb-0">These are the amazing people you work with!</p>
-                                        <hr class="my-2" color="#fff">
-                                        <h1 class="page-header-title mb-3">Steps</h1>
-
-                                        <div class="badge badge-pill badge-primary-soft text-primary badge-marketing mb-3">Step n°1: Send this personal link to each teammate you want to appear on you team trombinoscope.</div>
-                                        <p>
-                                        <a class="btn-teal btn rounded-pill px-4 ml-lg-4" onclick="copyToClipboard('<p>{{ linkedin_authorization_code_url_custom }}</p>')"><i class="fas fa-arrow-right ml-1"></i> Click to copy clipboard to get the magic link <i class="fas fa-arrow-left ml-1"></i></a>
-                                        <script type="text/javascript">
-                                        function copyToClipboard(element) {
-                                            var $temp = $("<input>");
-                                            $("body").append($temp);
-                                            $temp.val($(element).text()).select();
-                                            document.execCommand("copy");
-                                            $temp.remove();
-                                        }
-                                        </script>
-                                        </p>
-                                        <div class="badge badge-pill badge-primary-soft text-primary badge-marketing mb-3">Step n°2: When everyone is aboard, download the trombinoscope to see the result. And if everything is good for you, buy the physical luxury trombinoscope.</div>
-
-                                        
-                                            <a class="btn-teal btn rounded-pill px-4 ml-lg-4" href="../../report_export/{{ profil_linkedin_admin_id }}/{{ project_id }}">Watch your trombinoscope</a>
-                                        </p>
-                                        
-
-
                                     </div>
-
                                 </div>
                             </div>
                         </div>
-                        <div class="svg-border-rounded text-light">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
+                        <div class="svg-border-waves text-light">
+                            <svg class="wave" style="pointer-events: none" fill="currentColor" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 75">
+                                <defs>
+                                    <style>
+                                        .a {
+                                            fill: none;
+                                        }
+                                        .b {
+                                            clip-path: url(#a);
+                                        }
+                                        .d {
+                                            opacity: 0.5;
+                                            isolation: isolate;
+                                        }
+                                    </style>
+                                    <clippath id="a"><rect class="a" width="1920" height="75"></rect></clippath>
+                                </defs>
+                                <title>wave</title>
+                                <g class="b"><path class="c" d="M1963,327H-105V65A2647.49,2647.49,0,0,1,431,19c217.7,3.5,239.6,30.8,470,36,297.3,6.7,367.5-36.2,642-28a2511.41,2511.41,0,0,1,420,48"></path></g>
+                                <g class="b"><path class="d" d="M-127,404H1963V44c-140.1-28-343.3-46.7-566,22-75.5,23.3-118.5,45.9-162,64-48.6,20.2-404.7,128-784,0C355.2,97.7,341.6,78.3,235,50,86.6,10.6-41.8,6.9-127,10"></path></g>
+                                <g class="b"><path class="d" d="M1979,462-155,446V106C251.8,20.2,576.6,15.9,805,30c167.4,10.3,322.3,32.9,680,56,207,13.4,378,20.3,494,24"></path></g>
+                                <g class="b"><path class="d" d="M1998,484H-243V100c445.8,26.8,794.2-4.1,1035-39,141-20.4,231.1-40.1,378-45,349.6-11.6,636.7,73.8,828,150"></path></g>
+                            </svg>
                         </div>
                     </header>
 
@@ -62,12 +58,27 @@
                                     <h2>Step 2:</h2>
                                     <h2>Send your unique trombinoscope link to your teammates</h2>
                                     <p class="mb-0">Each teammate that clicks on your unique link, she or he will appear in your trombinoscope</p>
+                                    <hr class="my-2" />
+                                    <p>
+                                        <a class="btn-teal btn rounded-pill px-4 ml-lg-4 text-white" onclick="copyToClipboard('<p>{{ linkedin_authorization_code_url_custom }}</p>')"><i class="fas fa-arrow-right ml-1"></i> Click to copy clipboard and get the magic link <i class="fas fa-arrow-left ml-1"></i></a>
+                                        <script type="text/javascript">
+                                        function copyToClipboard(element) {
+                                            var $temp = $("<input>");
+                                            $("body").append($temp);
+                                            $temp.val($(element).text()).select();
+                                            document.execCommand("copy");
+                                            $temp.remove();
+                                        }
+                                        </script>
+                                    </p>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="icon-stack icon-stack-xl bg-yellow-soft text-white mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-truck"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg></div>
                                     <h2>Step 3:</h2>
                                     <h2>Order your company book trombinoscope</h2>
-                                    <p class="mb-0">Whatch the e-trombinoscope. Then order an amazing luxury book trombinoscope to keep track of who worked with you each year.</p>
+                                    <p class="mb-0">Watch the e-trombinoscope. Then order an amazing luxury book trombinoscope to keep track of who worked with you each year.</p>
+                                    <hr class="my-2" />
+                                    <a class="btn btn-outline-dark btn-marketing rounded-pill" href="../../report_export/{{ profil_linkedin_admin_id }}/{{ project_id }}">Watch your e-trombinoscope</a>
                                 </div>
                             </div>
                         </div>
@@ -101,9 +112,11 @@
                         </div>
                     </section>
                    
-                                        <section class="bg-light py-10">
+                    <hr class="my-0" />
 
-                    <div class="container z-1">
+                    <section class="bg-light py-10">
+                        <div class="container z-1">
+                            <h2 class="mb-4">Order your trombinoscope</h2>
                             <div class="card mb-5 aos-init aos-animate" data-aos="fade-right">
                                 <div class="row no-gutters">
                                     <div class="col-md-6"><img class="img-fluid" src="../../static/assets/img/luxury_book.png" alt="..."></div>

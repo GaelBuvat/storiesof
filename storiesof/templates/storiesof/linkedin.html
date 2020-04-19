@@ -93,7 +93,7 @@
                                 <div class="col-md-6 col-xl-4 mb-5 mt-n5">
                                     <a class="card card-portfolio h-100" href="../../linkedin_admin/{{ profil_linkedin_admin_id }}">
                                             <img class="card-img-top" src="https://source.unsplash.com/n3sqjJzZiBM/400x300" alt="..." />
-                                            <div class="card-title"><p></p><p class="btn btn-teal btn-marketing rounded-pill lift lift-sm" href=""><i class="fas fa-arrow-left ml-1"></i>Go back to your trombinoscope dashboard</p></div></a>
+                                            <div class="card-title"><p></p><p class="btn btn-teal btn-marketing rounded-pill lift lift-sm" href=""><i class="fas fa-arrow-left ml-1"></i> Go back to your trombinoscope dashboard</p></div></a>
                                 </div>
                                 {% for profil_linkedin in profils_linkedin %}
 
@@ -125,20 +125,19 @@
                                             <h3 class="card-title font-weight-bold text-uppercase mb-2">Luxury book</h3>
                                             <p class="card-text font-weight-light mb-4">90$</p>
                                             <div class="btn btn-outline-dark btn-marketing rounded-pill" >
-                                            <form action="../../../linkedin/{{ profil_linkedin_admin_id }}/{{ project_id }}" method="POST">
-                                            {% csrf_token %}
-
-                                          <script
-                                            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                                            data-key="{{ pub_key }}"
-                                            data-amount="9000"
-                                            data-name="Luxury book"
-                                            data-description="Stories"
-                                            data-image="../../static/assets/img/logo.png"
-                                            data-locale="auto">
-                                          </script>
-                                        </form>
-                                    </div>
+                                                <form action="../../../linkedin/{{ profil_linkedin_admin_id }}/{{ project_id }}" method="POST">
+                                                {% csrf_token %}
+                                                  <script
+                                                    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                                    data-key="{{ pub_key }}"
+                                                    data-amount="9000"
+                                                    data-name="Luxury book"
+                                                    data-description="Stories"
+                                                    data-image="../../static/assets/img/logo.png"
+                                                    data-locale="auto">
+                                                  </script>
+                                                </form>
+                                            </div>
                                         
                                         </div>
                                     </div>

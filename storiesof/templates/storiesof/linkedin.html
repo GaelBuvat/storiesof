@@ -60,7 +60,8 @@
                                     <p class="mb-0">Each teammate that clicks on your unique link, she or he will appear in your trombinoscope</p>
                                     <hr class="my-2" />
                                     <p>
-                                        <a class="btn-teal btn rounded-pill px-4 ml-lg-4 text-white" onclick="copyToClipboard('<p>{{ linkedin_authorization_code_url_custom }}</p>')"><i class="fas fa-arrow-right ml-1"></i> Click to copy to yout clipboard and get the magic link <i class="fas fa-arrow-left ml-1"></i></a>
+                                        <a class="btn-teal btn rounded-pill px-4 ml-lg-4 text-white" onclick="copyToClipboard('<p>{{ linkedin_authorization_code_url_custom }}</p>')"><i class="fas fa-arrow-right ml-1"></i> Click to copy to your clipboard and get the magic link <i class="fas fa-arrow-left ml-1"></i>
+                                        </a>
                                         <script type="text/javascript">
                                         function copyToClipboard(element) {
                                             var $temp = $("<input>");
@@ -68,6 +69,7 @@
                                             $temp.val($(element).text()).select();
                                             document.execCommand("copy");
                                             $temp.remove();
+                                            window.alert("Magic link copied to clipboard!");
                                         }
                                         </script>
                                     </p>

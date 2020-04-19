@@ -34,11 +34,6 @@ urlpatterns = [
     path('report/<profil_linkedin_admin_id>/<project_id>', views.report, name='report'),
     path('report_export/<profil_linkedin_admin_id>/<project_id>', views.report_export, name='report_export'),
     path('static/report/',views.staticreport),
-    
-
-    path('thanks',views.thanks, name='thanks'),
-    path('pay/<profil_linkedin_admin_id>/<project_id>',views.pay, name='pay'),
-
 
 
 ]

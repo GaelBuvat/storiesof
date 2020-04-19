@@ -19,7 +19,7 @@ import requests                                 # To use request package in curr
 CLIENT_ID = '789z7ztvzx8pgv'
 CLIENT_SECRET = 'y7NUzHM9yimbi2xZ'
 #  http://127.0.0.1:8001/ https://storiesof.herokuapp.com/
-URL_RACINE = 'https://storiesof.herokuapp.com/'
+URL_RACINE = 'http://127.0.0.1:8001/'
 REDIRECT_URL = URL_RACINE+'linkedin_auth/'
 
 linkedin_authorization_code_url = 'https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id='+ CLIENT_ID + '&redirect_uri=' + REDIRECT_URL + '&state=' + 'fooobar' + '&scope=r_liteprofile%20r_emailaddress%20w_member_social'    
@@ -339,38 +339,14 @@ def linkedin(request,profil_linkedin_admin_id,project_id):
 
         charge = stripe.Charge.create(
             customer=customer.id,
-            amount=8000,
+            amount=9000,
             currency='eur',
-            description='The Product'
+            description='Luxury book'
         )
         payed = True
-
-
 
     return render(request, 'storiesof/linkedin.html',{'profil_linkedin_admin':profil_linkedin_admin,'profils_linkedin':profils_linkedin,'linkedin_authorization_code_url_custom':linkedin_authorization_code_url_custom,'profil_linkedin_admin_id':profil_linkedin_admin_id,'project_id':project_id,'pub_key':pub_key,'payed':payed})
 
 
-
-def thanks(request,profil_linkedin_admin_id,project_id):
-
-
-    return render(request,'storiesof/linkedin.html')
-
-def pay(request,profil_linkedin_admin_id,project_id):
-    
-
-    form = request.POST
-    print(form['stripeEmail'])
-    customer = stripe.Customer.create(email=form['stripeEmail'], source=form['stripeToken'])
-
-    charge = stripe.Charge.create(
-        customer=customer.id,
-        amount=8000,
-        currency='eur',
-        description='The Product'
-    )
-
-    url = URL_RACINE + 'linkedin/' + profil_linkedin_admin_id + '/' + project_id
-    return redirect(url)
 
 

@@ -348,7 +348,3 @@ def linkedin(request,profil_linkedin_admin_id,project_id):
     return render(request, 'storiesof/linkedin.html',{'profil_linkedin_admin':profil_linkedin_admin,'profils_linkedin':profils_linkedin,'linkedin_authorization_code_url_custom':linkedin_authorization_code_url_custom,'profil_linkedin_admin_id':profil_linkedin_admin_id,'project_id':project_id,'pub_key':pub_key,'payed':payed})
 
 
-import clipboard
-clipboard.copy("abc")
-
-

@@ -50,7 +50,7 @@
                                 <div class="col-lg-4 mb-5 mb-lg-0">
                                     <div class="icon-stack icon-stack-xl bg-green-soft text-white mb-4"><i class="fas fa-book"></i><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg></div>
                                     <h2>Step 1:</h2>
-                                    <h2>Create a private trombinoscope</h2>
+                                    <h2>Create a private 2 trombinoscope</h2>
                                     <p class="mb-0">By creating a trombinoscope you get a unique private link you can send to all your teammates you want to appear.</p>
                                 </div>
                                 <div class="col-lg-4 mb-5 mb-lg-0">
@@ -60,6 +60,15 @@
                                     <p class="mb-0">Each teammate that clicks on your unique link, she or he will appear in your trombinoscope</p>
                                     <hr class="my-2" />
                                     <p>
+                                    <script type="text/javascript">
+                                        if (true) {
+                                    </script>
+                                    <div class="alert alert-info">Your order was accepted! You will receive a confirmation email.</div>
+                                    <script type="text/javascript">
+                                        }
+                                    </script>
+                                     
+                                        <p>
                                         <a class="btn-teal btn rounded-pill px-4 ml-lg-4 text-white" onclick="copyToClipboard('<p>{{ linkedin_authorization_code_url_custom }}</p>')"><i class="fas fa-arrow-right ml-1"></i> Click to copy to your clipboard and get the magic link <i class="fas fa-arrow-left ml-1"></i>
                                         </a>
                                         <script type="text/javascript">
@@ -70,6 +79,7 @@
                                             document.execCommand("copy");
                                             $temp.remove();
                                             window.alert("Magic link copied to clipboard!");
+                                            var $clipboard = true;
                                         }
                                         </script>
                                     </p>

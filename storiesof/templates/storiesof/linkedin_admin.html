@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+    
+    {% block content %}
+                    <header class="page-header page-header-dark bg-img-repeat bg-primary" style='background-image: url("assets/img/pattern-shapes.png")'>
+                        <div class="page-header-content">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-xl-8 col-lg-10 text-center">
+                                        <h1 class="page-header-title">Welcome back {{ profil_admin.first_name }}!</h1>
+                                        <p class="page-header-text mb-5">Let's create new trombinoscopes today!</p>
+                                        
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="svg-border-waves text-light">
+                            <svg class="wave" style="pointer-events: none" fill="currentColor" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 75">
+                                <defs>
+                                    <style>
+                                        .a {
+                                            fill: none;
+                                        }
+                                        .b {
+                                            clip-path: url(#a);
+                                        }
+                                        .d {
+                                            opacity: 0.5;
+                                            isolation: isolate;
+                                        }
+                                    </style>
+                                    <clippath id="a"><rect class="a" width="1920" height="75"></rect></clippath>
+                                </defs>
+                                <title>wave</title>
+                                <g class="b"><path class="c" d="M1963,327H-105V65A2647.49,2647.49,0,0,1,431,19c217.7,3.5,239.6,30.8,470,36,297.3,6.7,367.5-36.2,642-28a2511.41,2511.41,0,0,1,420,48"></path></g>
+                                <g class="b"><path class="d" d="M-127,404H1963V44c-140.1-28-343.3-46.7-566,22-75.5,23.3-118.5,45.9-162,64-48.6,20.2-404.7,128-784,0C355.2,97.7,341.6,78.3,235,50,86.6,10.6-41.8,6.9-127,10"></path></g>
+                                <g class="b"><path class="d" d="M1979,462-155,446V106C251.8,20.2,576.6,15.9,805,30c167.4,10.3,322.3,32.9,680,56,207,13.4,378,20.3,494,24"></path></g>
+                                <g class="b"><path class="d" d="M1998,484H-243V100c445.8,26.8,794.2-4.1,1035-39,141-20.4,231.1-40.1,378-45,349.6-11.6,636.7,73.8,828,150"></path></g>
+                            </svg>
+                        </div>
+                    </header>
+
+                    <section class="bg-white py-10">
+                        <div class="container">
+                            <div class="row text-center">
+                                <div class="col-lg-4 mb-5 mb-lg-0">
+                                    <div class="icon-stack icon-stack-xl bg-green text-white mb-4"><i class="fas fa-book"></i><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg></div>
+                                    <h2>Step 1:</h2>
+                                    <h2>Create a private trombinoscope</h2>
+                                    <p class="mb-0">By creating a trombinoscope you get a unique private link you can send to all your teammates you want to appear.</p>
+                                    <hr class="my-2" />
+                                    <a href="../create_project/{{ profil_linkedin_admin_id }}">
+                                        <p class="btn btn-teal btn-marketing rounded-pill lift lift-sm" href="">Create a new trombinoscope!<i class="fas fa-arrow-right ml-1"></i></p>
+                                    </a>
+                                </div>
+                                <div class="col-lg-4 mb-5 mb-lg-0">
+                                    <div class="icon-stack icon-stack-xl bg-yellow-soft text-white mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 640 512" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="svg-inline--fa fa-user-check fa-w-20" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="user-check" role="img" data-fa-i2svg=""><path fill="currentColor" d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4zm323-128.4l-27.8-28.1c-4.6-4.7-12.1-4.7-16.8-.1l-104.8 104-45.5-45.8c-4.6-4.7-12.1-4.7-16.8-.1l-28.1 27.9c-4.7 4.6-4.7 12.1-.1 16.8l81.7 82.3c4.6 4.7 12.1 4.7 16.8.1l141.3-140.2c4.6-4.7 4.7-12.2.1-16.8z"></path></svg><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg></div>
+                                    <h2>Step 2:</h2>
+                                    <h2>Send your unique trombinoscope link to your teammates</h2>
+                                    <p class="mb-0">Each teammate that clicks on your unique link, she or he will appear in your trombinoscope</p>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="icon-stack icon-stack-xl bg-yellow-soft text-white mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-truck"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg></div>
+                                    <h2>Step 3:</h2>
+                                    <h2>Order your company book trombinoscope</h2>
+                                    <p class="mb-0">Watch the e-trombinoscope. Then order an amazing luxury book trombinoscope to keep track of who worked with you each year.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="svg-border-rounded text-light">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
+                        </div>
+                    </section>
+
+
+                    <section class="bg-light py-10">
+                        <div class="container">
+                            <h2 class="mb-4">Recent trombinoscopes</h2>
+                            <div class="row">
+                                <div class="col-xl-3 col-lg-4 col-md-6 mb-5">
+                                    <a class="card lift h-100" href="../create_project/{{ profil_linkedin_admin_id }}">
+                                        <div class="card-flag card-flag-dark card-flag-top-right card-flag-lg">{{ projects_nb }} trombinoscopes</div>
+                                        <img class="card-img-top" src="{{ profil_admin.photo }}" alt="..." />
+                                        <div class="card-body p-3">
+                                            <p class="btn btn-teal btn-marketing rounded-pill lift lift-sm" href="">Create a new trombinoscope!<i class="fas fa-arrow-right ml-1"></i>
+                                            </p>
+                                        </div>
+                                    </a>
+                                </div>
+                                {% for project in projects %}
+
+                                <div class="col-xl-3 col-lg-4 col-md-6 mb-5">
+                                    <a class="card lift h-100" href="../linkedin/{{ project.linkedin_admin_id.linkedin_id }}/{{ project.id }}"
+                                        >
+                                        <img class="card-img-top" src="{{ project.photo_url }}" alt="..." />
+                                        <div class="card-body p-3">
+                                            <div class="card-title small mb-0">Story name</div>
+                                            <div class="text-xs text-gray-500">Company</div>
+                                        </div></a
+                                    >
+                                </div>
+                                {% endfor %}
+                                
+                            </div>
+                        </div>
+                    </section>
+
+                    <hr class="my-0" />
+
+                    <section class="bg-light py-10">
+                        <div class="container">
+                            <h2 class="mb-4">Stats</h2>
+                            <p class="page-header-text mb-5">Here's the few statitics around the stories you started.</p>
+
+                            <div class="row text-center">
+                                <div class="col-lg-4 mb-5 mb-lg-0">
+                                    <a class="card card-link border-top border-top-lg border-primary h-100 lift" href="#!"><div class="card-body p-5">
+                                            <div class="icon-stack icon-stack-lg bg-primary-soft text-primary mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fas fa-book"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div>
+                                            <h6>Number of trombinoscopes</h6>
+                                            <p class="card-text">Thanks for the trombinoscope you started!</p>
+                                        </div>
+                                        <div class="card-footer bg-transparent pt-0 pb-5"><div class="badge badge-pill badge-light font-weight-normal px-3 py-2">{{ projects_nb }} trombinoscopes</div></div></a>
+                                </div>
+                                <div class="col-lg-4 mb-5 mb-lg-0">
+                                    <a class="card card-link border-top border-top-lg border-green h-100 lift" href="#!"><div class="card-body p-5">
+                                            <div class="icon-stack icon-stack-lg bg-green-soft text-green mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fas fa-user-check"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
+                                            <h6>Number of teammates</h6>
+                                            <p class="card-text">Thanks to you, you manage to get aboard</p>
+                                        </div>
+                                        <div class="card-footer bg-transparent pt-0 pb-5"><div class="badge badge-pill badge-light font-weight-normal px-3 py-2">{{ profils_nb }} teamates</div></div></a>
+                                </div>
+                                <div class="col-lg-4">
+                                    <a class="card card-link border-top border-top-lg border-yellow h-100 lift" href="#!"><div class="card-body p-5">
+                                            <div class="icon-stack icon-stack-lg bg-yellow-soft text-yellow mb-4"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
+                                            <h6>Billing</h6>
+                                            <p class="card-text">Issues with payments or invoicing.</p>
+                                        </div>
+                                        <div class="card-footer bg-transparent pt-0 pb-5"><div class="badge badge-pill badge-light font-weight-normal px-3 py-2">14 Entries</div></div></a>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    
+                </main>
+            </div>
+        
+        {% endblock %}
+

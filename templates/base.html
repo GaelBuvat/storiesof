@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>STORIES</title>
+        <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+        <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+        <link rel="icon" type="image/x-icon" href="{% static 'assets/img/favicon.png' %}" />
+        <script data-search-pseudo-elements defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.24.1/feather.min.js" crossorigin="anonymous"></script>
+    </head>
+
+
+<body>
+     
+        <div id="layoutDefault">
+            <div id="layoutDefault_content">
+                <main>
+                    {% block nav %}
+                    <nav class="navbar navbar-marketing navbar-expand-lg bg-transparent navbar-dark fixed-top">
+                        <div class="container">
+                            <a class="navbar-brand text-white" href="{% url 'linkedin_homepage' %}">STORIES</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i data-feather="menu"></i></button>
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul class="navbar-nav ml-auto mr-lg-5">
+                                    <li class="nav-item"></li>
+                                    <li class="nav-item dropdown dropdown-xl no-caret">
+                                        
+                                    </li>
+                                    <li class="nav-item dropdown dropdown-lg no-caret">
+                                        
+                                    </li>
+                                    <li class="nav-item dropdown no-caret">
+                                       
+                                    </li>
+                                </ul>
+                                <a class="btn-teal btn rounded-pill px-4 ml-lg-4" href="{% url 'linkedin_auth_url' %}"><i class="fab fa-linkedin"></i> Start your trombinoscope now!<i class="fas fa-arrow-right ml-1"></i></a>
+                            </div>
+                        </div>
+                    </nav>
+                    {% endblock %}
+
+
+       {% block content %}{% endblock %}
+
+         
+
+
+     <div id="layoutDefault_footer">
+                <footer class="footer pt-10 pb-5 mt-auto bg-white footer-light">
+                    <div class="container">
+                        
+                        <hr class="my-5" />
+                        <div class="row align-items-center">
+                            <div class="col-md-6 small">Copyright &copy; Stories 2020</div>
+                            <div class="col-md-6 text-md-right small">
+                                <a href="javascript:void(0);">Privacy Policy</a>
+                                &middot;
+                                <a href="javascript:void(0);">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="{% static 'js/scripts.js' %}"></script>
+        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+        <script>
+            AOS.init({
+                disable: 'mobile',
+                duration: 600,
+                once: true
+            });
+        </script>
+    </body>
+</html>

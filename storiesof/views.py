@@ -16,8 +16,8 @@ from .models import ProfilLinkedin, ProfilLinkedinAdmin, Project
 
 import requests                                 # To use request package in current program 
 
-CLIENT_ID = '789z7ztvzx8pgv'
-CLIENT_SECRET = 'y7NUzHM9yimbi2xZ'
+CLIENT_ID = '78aq5hn47gyou4'
+CLIENT_SECRET = '9yBpbKfYBsEoQPoA'
 #  http://127.0.0.1:8001/ https://storiesof.herokuapp.com/
 URL_RACINE = 'https://storiesof.herokuapp.com/'
 REDIRECT_URL = URL_RACINE+'linkedin_auth/'
